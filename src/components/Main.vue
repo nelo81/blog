@@ -7,10 +7,10 @@
             </div>
             <div id="list">
                 <ul>
-                    <li><img src="../assets/home.png"/><a>主页</a></li>
-                    <li><img src="../assets/person.png"/><a>关于</a></li>
-                    <li><img src="../assets/tag.png"/><a>标签</a></li>
-                    <li><img src="../assets/file.png"/><a>归档</a></li>
+                    <li @click="goPage('/')"><img src="../assets/home.png"/><a>主页</a></li>
+                    <li @click="goPage('/about')"><img src="../assets/person.png"/><a>关于</a></li>
+                    <li @click="goPage('/tag')"><img src="../assets/tag.png"/><a>标签</a></li>
+                    <li @click="goPage('/table')"><img src="../assets/file.png"/><a>归档</a></li>
                 </ul>
             </div>
             <div id="head">
@@ -19,35 +19,7 @@
                 <p id="sign">无聊死啦</p>
             </div>
         </div>
-        <div id="content">
-            <div class="article">
-                <p class="title">标题：我的第一篇文章</p>
-                <p class="subtitle">2016-01-05</p>
-                <p class="summary">本文介绍</p>
-                <button>阅读全文</button>
-            </div>
-            <hr>
-            <div class="article">
-                <p class="title">标题：我的第一篇文章</p>
-                <p class="subtitle">2016-01-05</p>
-                <p class="summary">本文介绍</p>
-                <button>阅读全文</button>
-            </div>
-            <hr>
-            <div class="article">
-                <p class="title">标题：我的第一篇文章</p>
-                <p class="subtitle">2016-01-05</p>
-                <p class="summary">本文介绍</p>
-                <button>阅读全文</button>
-            </div>
-            <hr>
-            <div class="article">
-                <p class="title">标题：我的第一篇文章</p>
-                <p class="subtitle">2016-01-05</p>
-                <p class="summary">本文介绍</p>
-                <button>阅读全文</button>
-            </div>
-        </div>
+        <router-view></router-view>
         <div id="go-top" @click="gotop"><img src="../assets/up.png"></div>
     </div>
 </template>
@@ -67,7 +39,9 @@ export default {
                   clearInterval(anim);
               }
           },10)
-          
+      },
+      goPage (page) {
+          this.$router.push(page);
       }
   }
 }
@@ -156,53 +130,50 @@ export default {
     color: gray;
 }
 
-#content{
-    width: 80%;
-    height: 100%;
-    text-align: center;
-    margin-left: 30px;
+.side-nav{
+    position: fixed;
+    width: 60px;
+    top: 50px;
+    right: 50px;
+}
+
+.side-nav ul{
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
     background: #fff;
 }
 
-.article{
-    margin: 80px 0;
-}
-
-.article button{
-    border: 2px solid #202020;
-    border-radius: 2px;
-    outline: none;
-    width: 120px;
-    height: 35px;
-    font-size: 13px;
-    background: white;
-    color: #202020;
-    font-weight: 570;
+.side-nav li{
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    list-style-type: none;
+    color: #787878;
+    margin: 0px 0;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
     transition: all 0.5s ease;
 }
 
-.article button:hover{
-    background: #202020;
-    color: white;
+.side-nav li:hover{
+    background: #787878;
+    color: #fff;
+    height: 50px;
+    line-height: 50px;
 }
 
-.article .title{
-    color: #202020;
-    font-size: 25px;
-    margin-bottom: 10px;
-    font-weight: 300;
+.side-nav li:first-child{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top: 1px solid #fff;
 }
 
-.article .subtitle{
-    color: #888888;
-    font-size: 15px;
-}
-
-.article .summary{
-    color: #202020;
-    font-size: 17px;
-    text-align: left;
-    margin: 50px 50px;
+.side-nav li:last-child{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom: 1px solid #fff;
 }
 
 #go-top{
@@ -214,5 +185,56 @@ export default {
 #go-top img{
     width: 50px;
     height: 50px;
+}
+
+#content{
+    width: 80%;
+    height: 100%;
+    text-align: center;
+    margin-left: 30px;
+    background: #fff;
+}
+
+.inner-block{
+    margin: 50px;
+    height: 100%;
+}
+
+.article-list{
+    margin-bottom: 100px;
+}
+
+.article-list li{
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    list-style-type: none;
+    margin: 30px 0;
+    border-bottom:1px dashed #666666;
+    color: #787878;
+}
+
+.article-list li:hover{
+    color: #000;
+}
+
+.article-list li span{
+    font-size: 12px;
+}
+
+.article-list li::before{
+    content: '●';
+    position: relative;
+    left: -20px;
+}
+
+.article-list li::after{
+    position: relative;
+    float: left;
+    content: '';
+    display: block;
+    height: 60px;
+    border-left: 1px dashed #A8A8A8;
+    left: -15px;
 }
 </style>
